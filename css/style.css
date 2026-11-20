@@ -1,0 +1,200 @@
+/* =====================================================================
+ * style.css – Hyttetur i fjellet
+ * VOICE: lun hyttekveld, lekent og lettlest på mobil
+ * IDEA: terninger som ruller over et furubord i hytta, med fjellet utenfor
+ * PICTURE: fjellbildet med hytte, dyr og vann øverst, terningbordet i midten
+ * COLOUR/TYPE: himmelblå og fjellblå, rødmalt hytte, bjørkegrønt og furu; Fredoka + Nunito
+ * LAYOUT: én kolonne, maks 640 px bred
+ * ===================================================================== */
+
+/* ---------- fargevariabler (lys og mørk) ---------- */
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#f3efe6, #10171e);
+  --paper: light-dark(#fffdf8, #18222c);
+  --ink: light-dark(#23303a, #e9eff3);
+  --mute: light-dark(#66727b, #9fb0bc);
+  --line: light-dark(#ddd3c2, #2c3a46);
+  --soft: light-dark(#f4ece0, #1f2b36);
+  --red: #b53a2c;         /* rødmalt hytte */
+  --red-dark: #7e241b;
+  --fjord: #3a6f99;
+  --birch: #6f9e45;
+  --gold: #e8b23a;
+  --pine: #c58a52;        /* furubordet */
+  --die: #fbf8f0;
+  --pip: #1d1d1f;
+  --s: clamp(38px, 12.5vw, 56px);   /* terningstørrelse */
+}
+:root[data-theme=light] { color-scheme: light; }
+:root[data-theme=dark] { color-scheme: dark; }
+
+* { box-sizing: border-box; min-width: 0; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 Nunito, system-ui, sans-serif; overflow-x: clip; }
+h1, h2, .big, .num, .partytitle, .rank { font-family: Fredoka, Nunito, sans-serif; }
+h2 { font-size: 24px; line-height: 1.15; margin: 26px 0 8px; }
+.card h2 { margin-top: 0; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 12px calc(40px + env(safe-area-inset-bottom)); }
+.note { font-size: 14px; color: var(--mute); margin: 8px 0 0; }
+.err { color: var(--red); font-weight: 700; }
+
+/* ---------- knapper og felt ---------- */
+button { font: inherit; cursor: pointer; border: 0; border-radius: 14px; min-height: 46px; padding: 0 18px; }
+button:focus-visible, input:focus-visible, .tap:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.primary { background: var(--red); color: #fff; font-weight: 700; box-shadow: 0 3px 0 var(--red-dark); }
+.primary:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--red-dark); }
+.primary:disabled { background: var(--line); color: var(--mute); box-shadow: none; cursor: default; }
+.ghost { background: var(--soft); color: var(--ink); border: 1px solid var(--line); }
+.wide { width: 100%; margin-top: 12px; }
+input { font: inherit; font-size: 16px; min-height: 46px; width: 100%; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: 0 12px; }
+.codein { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; }
+label { display: block; font-weight: 700; margin: 14px 0 6px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.row input { flex: 1 1 140px; }
+.or { text-align: center; color: var(--mute); margin: 16px 0 0; font-size: 14px; }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 16px; margin-top: 14px; }
+
+/* ---------- fjellbildet ---------- */
+.hero { position: relative; overflow: hidden; background: #6f9fc8; }
+.scene { display: block; width: 100%; height: clamp(170px, 40vw, 260px); }
+.titlebar { position: absolute; inset: 0 0 auto 0; display: flex; align-items: flex-start; gap: 12px; padding: max(10px, env(safe-area-inset-top)) max(14px, calc(50vw - 306px)) 0; }
+.titlebar h1 { margin: 0; font-size: clamp(28px, 7.5vw, 44px); line-height: 1; color: #fff; text-shadow: 0 2px 0 #3a6f99, 0 4px 10px #23303a66; }
+.icon { margin-left: auto; width: 46px; padding: 0; display: grid; place-items: center; background: #ffffffcc; color: #23303a; border-radius: 50%; }
+.icon svg { width: 24px; height: 24px; }
+.icon .cross { display: none; }
+.icon.off .cross { display: block; }
+.icon.off .waves { display: none; }
+.tap { cursor: pointer; transform-box: fill-box; transform-origin: 50% 100%; }
+.animal { transform-box: fill-box; transform-origin: 50% 100%; animation: graze 4s ease-in-out infinite; }
+.cow { animation-delay: -1.8s; animation-duration: 5s; }
+@keyframes graze { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-2deg) translateY(-1px); } }
+.poke { animation: poke .5s ease !important; }
+@keyframes poke { 30% { transform: translateY(-8px) scale(1.06); } }
+.fish { transform-box: fill-box; transform-origin: 50% 50%; animation: jump 7s ease-in-out infinite; opacity: 0; }
+@keyframes jump { 0%, 70%, 100% { opacity: 0; transform: translate(0, 12px) rotate(0); } 76% { opacity: 1; transform: translate(-6px, -14px) rotate(-25deg); } 84% { opacity: 1; transform: translate(-14px, -4px) rotate(20deg); } 88% { opacity: 0; transform: translate(-16px, 10px) rotate(40deg); } }
+.ripple { transform-box: fill-box; transform-origin: center; animation: ripple 7s ease-out infinite; opacity: 0; }
+@keyframes ripple { 0%, 85% { opacity: 0; transform: scale(.3); } 88% { opacity: .8; } 100% { opacity: 0; transform: scale(1.8); } }
+.smoke { animation: smoke 4.5s linear infinite; opacity: 0; }
+.s2 { animation-delay: 1.5s; } .s3 { animation-delay: 3s; }
+@keyframes smoke { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 20% { opacity: .9; } 100% { opacity: 0; transform: translate(14px, -42px) scale(1.8); } }
+.flock { animation: fly 14s ease-in-out infinite alternate; }
+@keyframes fly { to { transform: translate(60px, -8px); } }
+
+/* ---------- spillkode, status og tur ---------- */
+.codebox { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 10px 14px; }
+.codebox .lbl { display: block; font-size: 13px; color: var(--mute); }
+.codebox button { margin-left: auto; }
+.big { font-size: 40px; font-weight: 700; letter-spacing: 4px; line-height: 1.05; }
+.banner { margin-top: 12px; border-radius: 16px; padding: 12px 16px; font-weight: 600; display: flex; gap: 4px 12px; align-items: center; flex-wrap: wrap; background: var(--soft); border: 1px solid var(--line); }
+.banner.mine { background: var(--birch); color: #fff; border-color: #4f7a2e; }
+.banner .r { margin-left: auto; font-weight: 400; font-size: 14px; }
+
+/* ---------- furubordet med 3D-terninger ---------- */
+.tablewrap { margin-top: 12px; border-radius: 22px; padding: 10px; background: linear-gradient(#7b4f2c, #5e3a1f); box-shadow: 0 6px 16px #0004; }
+.table {
+  position: relative; height: calc(var(--s) * 2 + 70px); border-radius: 14px; overflow: hidden; perspective: 1800px;
+  background:
+    repeating-linear-gradient(90deg, #0000 0 22%, #00000014 22% 22.4%),
+    repeating-linear-gradient(0deg, #ffffff10 0 3px, #0000 3px 9px),
+    linear-gradient(170deg, #d9a36b, var(--pine) 45%, #a96f3c);
+  box-shadow: inset 0 2px 14px #0005;
+}
+.die { position: absolute; width: var(--s); height: var(--s); padding: 0; background: none; border-radius: 0; min-height: 0; transform-style: preserve-3d; }
+.die:disabled { cursor: default; }
+.cube { position: absolute; inset: 0; transform-style: preserve-3d; }
+.face {
+  position: absolute; inset: 0; border-radius: 17%; padding: 13%;
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+  background: radial-gradient(circle at 30% 25%, #fff, var(--die) 55%, #e6dfcf);
+  box-shadow: inset 0 0 0 1px #d8cfbd, inset -3px -4px 6px #0000001f;
+  backface-visibility: hidden;
+}
+.face i { border-radius: 50%; }
+.face .pip { background: radial-gradient(circle at 40% 35%, #4a4a4e, var(--pip) 60%); margin: 12%; }
+.f1 { transform: translateZ(calc(var(--s) / 2)); }
+.f6 { transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); }
+.f3 { transform: rotateY(90deg) translateZ(calc(var(--s) / 2)); }
+.f4 { transform: rotateY(-90deg) translateZ(calc(var(--s) / 2)); }
+.f2 { transform: rotateX(90deg) translateZ(calc(var(--s) / 2)); }
+.f5 { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
+.f1 .pip { background: radial-gradient(circle at 40% 35%, #d2483a, var(--red) 60%); }
+.shadow { position: absolute; left: 8%; right: -6%; top: 14%; bottom: -10%; border-radius: 30%; background: #0000004d; filter: blur(5px); transform: translateZ(-1px); }
+.die.blank { opacity: .35; }
+.die.held .face { box-shadow: inset 0 0 0 4px var(--gold), inset -3px -4px 6px #0000001f; }
+.tag { position: absolute; left: 50%; bottom: -18px; transform: translateX(-50%); font-size: 11px; font-weight: 700; color: #fff; background: #23303acc; padding: 0 6px; border-radius: 6px; }
+.die.landed { animation: settle .25s ease-out; }
+@keyframes settle { 50% { filter: brightness(1.08); } }
+.trayinfo { text-align: center; font-size: 14px; color: var(--mute); margin: 10px 0 0; }
+.actions { margin-top: 10px; }
+.roll { flex: 1 1 220px; font-size: 19px; min-height: 54px; }
+.toggle { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0; font-weight: 600; color: var(--mute); flex: 1 1 100%; }
+.toggle input { width: 22px; min-height: 22px; height: 22px; flex: none; }
+
+/* ---------- velg rute ---------- */
+.place, .viewing { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-radius: 16px; padding: 10px 12px; background: var(--paper); }
+.place { border: 2px solid var(--gold); position: sticky; bottom: 10px; z-index: 3; box-shadow: 0 6px 18px #0003; }
+.place span, .viewing span { flex: 1 1 180px; font-weight: 700; }
+.viewing { border: 1px solid var(--line); }
+
+/* ---------- poengkortet ---------- */
+.sheet { margin-top: 12px; overflow-x: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+caption { caption-side: top; text-align: left; }
+.capin { display: flex; align-items: baseline; gap: 8px; padding: 10px 14px; font-weight: 600; flex-wrap: wrap; }
+.capin .num { font-size: 28px; }
+.capin span:last-child { font-weight: 400; color: var(--mute); font-size: 14px; }
+th, td { border-bottom: 1px solid var(--line); padding: 0; height: 38px; text-align: center; }
+th.cat { text-align: right; padding: 0 8px; font-weight: 600; white-space: nowrap; position: sticky; left: 0; background: var(--paper); z-index: 1; border-right: 1px solid var(--line); }
+thead th { font-family: Fredoka, sans-serif; color: var(--mute); font-weight: 600; }
+td.mx { color: var(--mute); font-size: 13px; width: 42px; border-right: 1px solid var(--line); }
+td.c { min-width: 46px; font-family: Fredoka, sans-serif; font-size: 18px; font-weight: 600; }
+td.c button { all: unset; display: block; width: 100%; height: 38px; line-height: 38px; cursor: pointer; text-align: center; }
+td.c button:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
+td.open .hi { color: var(--fjord); }
+td.open .lo { color: var(--mute); font-weight: 400; }
+td.sel { background: color-mix(in srgb, var(--gold) 45%, transparent); }
+td.gold { color: #a87510; }
+tr.sum th, tr.sum td { background: var(--soft); font-weight: 700; }
+tr.tot th, tr.tot td, tr.tot th.cat { background: #2f4a63; color: #fff; }
+
+/* ---------- poengtavla ---------- */
+.scoreboard { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.pl button, .pl.empty { width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 16px; padding: 10px 14px; min-height: 64px; }
+.pl.empty { color: var(--mute); font-size: 14px; }
+.pl.turn button { border: 2px solid var(--birch); }
+.pl.off button { opacity: .55; }
+.rank { width: 34px; height: 34px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--soft); font-weight: 700; }
+.pl:first-child .rank { background: var(--gold); color: #23303a; }
+.who { flex: 1; }
+.who b { font-size: 17px; }
+.who em { font-style: normal; color: var(--mute); font-size: 13px; }
+.who small { display: block; color: var(--mute); font-size: 13px; }
+.per { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; color: var(--mute); margin-top: 2px; }
+.per i { font-style: normal; white-space: nowrap; }
+.per b { font-size: 12px; color: var(--ink); }
+.pts { font-size: 26px; font-weight: 700; }
+.mini { display: flex; gap: 4px; margin-top: 4px; }
+.mini i { width: 20px; height: 20px; border-radius: 5px; background: var(--die); color: var(--pip); font: 700 12px/20px Fredoka, sans-serif; text-align: center; font-style: normal; box-shadow: 0 1px 0 #b7ad99; }
+.mini i.h { box-shadow: 0 0 0 2px var(--gold); }
+
+/* ---------- feiring ---------- */
+.party { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: #23303a88; padding: 20px; }
+.partyin { background: linear-gradient(#bcd9ea, #f6e2b8); border: 4px solid #fff; border-radius: 26px; padding: 18px 26px; text-align: center; max-width: 340px; box-shadow: 0 10px 30px #0006; animation: pop .45s cubic-bezier(.3, 1.6, .5, 1); color: #23303a; }
+.partysheep { width: 150px; height: 112px; animation: hop .5s ease-in-out infinite alternate; }
+.partytitle { font-size: 34px; margin: 4px 0 0; line-height: 1.05; }
+.partysub { margin: 6px 0 0; font-weight: 600; }
+@keyframes pop { from { transform: scale(.4) rotate(-6deg); opacity: 0; } }
+@keyframes hop { to { transform: translateY(-14px); } }
+.leaf { position: fixed; top: -20px; width: 10px; height: 14px; border-radius: 60% 0; z-index: 11; pointer-events: none; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
+
+@media (max-width: 420px) {
+  td.c { min-width: 40px; font-size: 16px; }
+  th.cat { font-size: 14px; padding: 0 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animal, .fish, .ripple, .smoke, .flock, .partysheep, .partyin, .die.landed, .poke { animation: none !important; }
+  .fish { opacity: 1; }
+  .leaf { display: none; }
+}
