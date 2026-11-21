@@ -13,10 +13,10 @@
 
 <!-- ============ Fjellbildet øverst (trykk på dyrene for lyd) ============ -->
 <header class="hero">
-  <svg class="scene" viewBox="0 0 600 230" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Laftet tømmerhytte med sort tak ved et fjellvann, med grantrær, sau, ku, gjøk og fisk">
+  <svg class="scene" viewBox="0 0 600 230" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Laftet tømmerhytte med sort tak ved et fjellvann, med grantrær, sau, ku, gjøk og fisk">
     <defs>
-      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6f9fc8"/><stop offset=".6" stop-color="#bcd9ea"/><stop offset="1" stop-color="#f6e2b8"/></linearGradient>
-      <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d95bf"/><stop offset="1" stop-color="#2f6286"/></linearGradient>
+      <linearGradient id="sky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="230"><stop offset="0" stop-color="#6f9fc8"/><stop offset=".6" stop-color="#bcd9ea"/><stop offset="1" stop-color="#f6e2b8"/></linearGradient>
+      <linearGradient id="lake" gradientUnits="userSpaceOnUse" x1="0" y1="170" x2="0" y2="230"><stop offset="0" stop-color="#5d95bf"/><stop offset="1" stop-color="#2f6286"/></linearGradient>
       <linearGradient id="fishg" x1="0" x2="1"><stop offset="0" stop-color="#c7d3d8"/><stop offset="1" stop-color="#e98a5a"/></linearGradient>
       <!-- Bjørk: hvit stamme med svarte merker og grønn krone -->
       <symbol id="birch" viewBox="0 0 40 110">
@@ -33,19 +33,26 @@
       </symbol>
     </defs>
 
-    <rect width="600" height="230" fill="url(#sky)"/>
+    <!-- Himmelen strekker seg langt utenfor bildet, så det aldri blir tomme kanter på brede eller smale skjermer -->
+    <rect x="-1200" y="-600" width="3000" height="900" fill="url(#sky)"/>
     <circle cx="500" cy="58" r="26" fill="#fff4c4" opacity=".9"/>
     <!-- Småfugler som flyr -->
     <g class="flock" fill="none" stroke="#3e4c5a" stroke-width="2" stroke-linecap="round">
       <path d="M90 52q6-6 12 0q6-6 12 0"/><path d="M122 40q5-5 10 0q5-5 10 0"/><path d="M70 36q4-4 8 0q4-4 8 0"/>
     </g>
-    <!-- Fjell bak og foran, med snø -->
+    <!-- Fjell bak og foran, med snø. Speilet på begge sider så fjellkjeden fortsetter på brede skjermer -->
+    <g id="mtn">
     <path d="M0 150L70 80L120 118L190 52L260 120L320 70L400 132L470 76L540 124L600 96V170H0Z" fill="#8ea9c3"/>
     <path d="M190 52L172 70L184 68L195 78L206 66L220 74ZM320 70L305 86L318 84L328 92L338 84ZM470 76L455 92L468 90L478 98L489 90Z" fill="#fff"/>
     <path d="M0 170L60 120L110 150L170 104L240 160L300 128L360 166L440 120L520 160L600 136V190H0Z" fill="#62809e"/>
     <path d="M170 104L156 118L168 116L178 126L190 116ZM440 120L426 134L438 132L448 140L458 132Z" fill="#f2f6f9"/>
+    </g>
+    <use href="#mtn" transform="translate(0 0) scale(-1 1)"/>
+    <use href="#mtn" transform="translate(1200 0) scale(-1 1)"/>
+    <use href="#mtn" transform="translate(-1200 0)"/>
+    <use href="#mtn" transform="translate(1200 0)"/>
     <!-- Vann med speiling -->
-    <path d="M0 176Q150 166 330 178V230H0Z" fill="url(#lake)"/>
+    <path d="M-1200 176H0Q150 166 330 178V600H-1200Z" fill="url(#lake)"/>
     <path d="M30 192h60M120 200h80M40 212h50M220 206h70" stroke="#fff" stroke-width="2" opacity=".35" stroke-linecap="round"/>
     <!-- Fisken som vaker -->
     <g class="tap" data-sound="splash" role="button" tabindex="0" aria-label="Fisken">
@@ -54,8 +61,8 @@
       <g class="fish"><path d="M150 196q15-14 30 0q-15 10-30 0z" fill="url(#fishg)" stroke="#3a4a52" stroke-width="1.5"/><path d="M180 196l10-7v14z" fill="#e98a5a" stroke="#3a4a52" stroke-width="1.5"/><circle cx="156" cy="194" r="1.8" fill="#222"/></g>
     </g>
     <!-- Gress og bakke -->
-    <path d="M300 230V182Q380 168 460 174T600 168V230Z" fill="#7aa858"/>
-    <path d="M300 230V196Q420 188 600 192V230Z" fill="#6a9a4a"/>
+    <path d="M300 600V182Q380 168 460 174T600 168H1800V600Z" fill="#7aa858"/>
+    <path d="M300 600V196Q420 188 600 192H1800V600Z" fill="#6a9a4a"/>
     <!-- Bjørker, gjøken sitter i den ene -->
     <use href="#birch" x="290" y="96" width="42" height="112"/>
     <use href="#birch" x="565" y="100" width="36" height="98"/>

@@ -2,7 +2,7 @@
 
 Yatzy-variant for hytta, laget for mobil. Fra 1 til 4 spillere kan spille alene, sammen på én mobil, eller på hver sin mobil. Spillet trenger ingen konto og ingen egen server.
 
-Spill på nett: https://langsaabakken.github.io/fridthjof-for-faen/
+Spill på nett: https://langsaabakken.github.io/fff/
 
 ## Regler i korte trekk
 
@@ -53,6 +53,6 @@ Du kan også trykke på dyrene i fjellbildet. Lyden slås av og på med høyttal
 
 ## Publisere en ny versjon
 
-Last opp alle filene og mappene til GitHub-repoet `langsaabakken/fridthjof-for-faen` med Add file › Upload files › Commit changes. GitHub Pages oppdaterer siden etter et par minutter.
+Last opp alle filene og mappene til GitHub-repoet `langsaabakken/fff` med Add file › Upload files › Commit changes. GitHub Pages oppdaterer siden etter et par minutter.
 
 Siden kan også åpnes direkte fra disken (`index.html`) for testing. Da spiller du på én mobil eller maskin.
