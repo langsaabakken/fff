@@ -57,9 +57,10 @@ label { display: block; font-weight: 700; margin: 14px 0 6px; }
 
 /* ---------- fjellbildet ---------- */
 .hero { position: relative; overflow: hidden; background: #6f9fc8; }
-.scene { display: block; width: 100%; height: clamp(170px, 40vw, 260px); }
+/* Hele bildet vises alltid (meet). Landskapet er tegnet bredere enn bildet, så kantene fylles ut */
+.scene { display: block; width: 100%; height: clamp(195px, calc(38.4vw + 45px), 400px); } /* +45px gir himmel til tittelen over fjellene */
 .titlebar { position: absolute; inset: 0 0 auto 0; display: flex; align-items: flex-start; gap: 12px; padding: max(10px, env(safe-area-inset-top)) max(14px, calc(50vw - 306px)) 0; }
-.titlebar h1 { margin: 0; font-size: clamp(28px, 7.5vw, 44px); line-height: 1; color: #fff; text-shadow: 0 2px 0 #3a6f99, 0 4px 10px #23303a66; }
+.titlebar h1 { margin: 0; font-size: clamp(24px, 7.5vw, 44px); line-height: 1; white-space: nowrap; color: #fff; text-shadow: 0 2px 0 #3a6f99, 0 4px 10px #23303a66; }
 .icon { margin-left: auto; width: 46px; padding: 0; display: grid; place-items: center; background: #ffffffcc; color: #23303a; border-radius: 50%; }
 .icon svg { width: 24px; height: 24px; }
 .icon .cross { display: none; }
